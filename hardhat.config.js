@@ -4,6 +4,7 @@ require("@openzeppelin/hardhat-upgrades")
 require("./tasks")
 require("@chainlink/env-enc").config()
 const { networks } = require("./networks")
+require("dotenv").config()
 
 // Enable gas reporting (optional)
 const REPORT_GAS = process.env.REPORT_GAS?.toLowerCase() === "true" ? true : false

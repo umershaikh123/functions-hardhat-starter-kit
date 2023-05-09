@@ -11,7 +11,7 @@ if (
   secrets.apiKey === "Your coinmarketcap API key (get a free one: https://coinmarketcap.com/api/)"
 ) {
   throw Error(
-    "COINMARKETCAP_API_KEY environment variable not set for CoinMarketCap API.  Get a free key from https://coinmarketcap.com/api/"
+    "COINMARKETCAP_API_KEY environment variable not set  for CoinMarketCap API.  Get a free key from https://coinmarketcap.com/api/"
   )
 }
 
