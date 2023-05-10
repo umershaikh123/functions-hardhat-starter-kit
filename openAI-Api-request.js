@@ -1,4 +1,4 @@
-const prompt = args[0]
+const content = args[0]
 // const Rules = args[1]
 // const content = args[2]
 
@@ -27,7 +27,7 @@ const openAIRequest = Functions.makeHttpRequest({
     Authorization: `Bearer ${secrets.openaiKey}`,
   },
   data: {
-    input: prompt,
+    input: content,
     temperature: 0,
     max_tokens: 3,
   },
@@ -36,8 +36,27 @@ const openAIRequest = Functions.makeHttpRequest({
 const [openAiResponse] = await Promise.all([openAIRequest])
 console.log("raw response", openAiResponse.data.results)
 
+// console.log("categories", openAiResponse.data.results[0].categories)
+
+const categories = openAiResponse.data.results[0].categories
+
+let trueCategories = []
+let trueCount = 0
+for (let category in categories) {
+  if (categories[category] === true) {
+    trueCount++
+    trueCategories.push(category)
+  }
+}
+
+if (trueCount >= 1) {
+  console.log(`content contains : ${trueCategories.join(", ")}`)
+} else {
+  console.log("content is safe ")
+}
+
 console.log("Result =", openAiResponse)
 
-const result = openAiResponse.data.choices[0].text
+const result = openAiResponse.data.results[0].categories
 
 return Functions.encodeString(result)
