@@ -27,19 +27,17 @@ const openAIRequest = Functions.makeHttpRequest({
     Authorization: `Bearer ${secrets.openaiKey}`,
   },
   data: {
-    model: "content-filter-alpha-1",
-    prompt: `Please moderate this text: "${prompt}"`,
+    input: prompt,
     temperature: 0,
     max_tokens: 3,
-    labels: ["Safe", "Potentially harmful", "Unsafe"],
   },
 })
 
 const [openAiResponse] = await Promise.all([openAIRequest])
-console.log("raw response", openAiResponse)
+console.log("raw response", openAiResponse.data.results)
 
-onsole.log("Result =", openAiResponse.data.choices[0].text)
-onsole.log("Result =", openAiResponse.data.choices[0].text)
+console.log("Result =", openAiResponse)
+
 const result = openAiResponse.data.choices[0].text
 
 return Functions.encodeString(result)
